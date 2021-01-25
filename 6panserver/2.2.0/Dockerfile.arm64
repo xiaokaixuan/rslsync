@@ -1,0 +1,29 @@
+FROM golang:alpine as builder
+
+ENV VERSION=2.2.0
+
+RUN apk add --update wget git && \
+    wget -qO- https://github.com/liupan1890/xiaobaiyang2/archive/v${VERSION}.tar.gz | tar zx -C /; \
+    cd /xiaobaiyang2-2.2.0/source-6panserver/src; \
+    set -x; \
+    go get github.com/tidwall/buntdb; \
+    go get github.com/chennqqi/chardet; \
+    go get github.com/tidwall/gjson; \
+    go get github.com/typa01/go-utils; \
+    go get github.com/skratchdot/open-golang/open; \
+    go get golang.org/x/text/transform; \
+    mv main.syso main_windows.syso; \
+    CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "-w -s" -o /6panserver; \
+    set +x; \
+    chmod a+x /6panserver
+    
+FROM arm64v8/alpine:latest
+
+COPY www.db /AppData/www.db
+COPY --from=builder /6panserver /6panserver
+
+VOLUME /downloads
+
+EXPOSE 29375
+
+ENTRYPOINT ["/6panserver", "--isremote=true", "--password=0123456789012345"]
