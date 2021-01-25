@@ -1,0 +1,13 @@
+#!/bin/sh
+
+mkdir -p /config/qBittorrent /downloads
+
+[ ! -e /config/qBittorrent/qBittorrent.conf ] && cp /service/qbittorrent/qBittorrent.conf /config/qBittorrent/qBittorrent.conf
+
+WEBUI_PORT=${WEBUI_PORT:-8080}
+
+umask 0
+
+export HOME="/config" XDG_CONFIG_HOME="/config" XDG_DATA_HOME="/config"
+
+exec /qbittorrent-nox --webui-port=${WEBUI_PORT}
