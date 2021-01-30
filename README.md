@@ -1,4 +1,5 @@
 ## Resilio Sync + File Browser + qBittorrentEE + 6Pan Server
+## Aria2 + AriaNg
 
 ### Usage
 > *rslsync*
@@ -23,6 +24,11 @@ docker run -d --name qbittorrent \
     -e WEBUI_PORT=8080 --restart always \
     -p 6881:6881 -p 6881:6881/udp -p 8080:8080 \
     -v /path/to/config:/config -v /path/to/downloads:/downloads xiaokaixuan/qbittorrent_ee
+```
+> *Aria2 + AriaNg*
+```bash
+docker run -d --name aria2_ng --restart always \
+    -v /path/to/downloads:/downloads -p 6800:6800 -p 80:80 xiaokaixuan/aria2_ng
 ```
 
 ### Build
