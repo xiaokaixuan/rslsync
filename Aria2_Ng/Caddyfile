@@ -1,0 +1,7 @@
+{
+  admin off
+}
+:80 {
+  root * /AriaNg
+  file_server
+}

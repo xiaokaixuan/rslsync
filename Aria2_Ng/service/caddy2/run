@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export HOME=/root XDG_CONFIG_HOME=/root
+
+exec /caddy run --config /Caddyfile
+
