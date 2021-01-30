@@ -1,4 +1,6 @@
 #!/bin/sh
 
+umask 0
+
 exec /aria2c --conf-path=/aria2.conf
 
