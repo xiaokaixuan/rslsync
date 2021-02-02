@@ -1,5 +1,5 @@
 ## Resilio Sync + File Browser + qBittorrentEE + 6Pan Server
-## Aria2 + AriaNg
+## Aria2 + AriaNg + qBittorrent
 
 ### Usage
 > *rslsync*
