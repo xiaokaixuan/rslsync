@@ -2,7 +2,7 @@
 
 mkdir -p /config/qBittorrent /downloads
 
-[ ! -e /config/qBittorrent/qBittorrent.conf ] && cp /service/qbittorrent/qBittorrent.conf /config/qBittorrent/qBittorrent.conf
+[ ! -e /config/qBittorrent/qBittorrent.conf ] && cp /qbittorrent/qBittorrent.conf /config/qBittorrent/qBittorrent.conf
 
 WEBUI_PORT=${WEBUI_PORT:-8080}
 
