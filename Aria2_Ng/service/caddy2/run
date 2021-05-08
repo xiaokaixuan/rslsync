@@ -2,5 +2,7 @@
 
 export HOME=/root XDG_CONFIG_HOME=/root
 
+exec 1>/dev/null 2>&1
+
 exec /caddy run --config /Caddyfile
 
