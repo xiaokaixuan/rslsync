@@ -14,7 +14,7 @@ COPY --from=builder /sync.conf.default /etc/
 
 EXPOSE 8888/tcp 55555/tcp 55555/udp
 
-VOLUME [/sync_data]
+VOLUME /sync_data
 
 ENTRYPOINT ["run_sync"]
 
