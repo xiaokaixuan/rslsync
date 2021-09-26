@@ -6,7 +6,7 @@ RUN apt-get update; apt-get install --no-install-recommends -y git; \
     git clone -b main https://github.com/Xhofe/alist.git /alist; \
     cd /alist; \
     set -x; \
-    GOOS=linux GOARCH=amd64 go build -a -ldflags "-linkmode external -extldflags '-static' -s -w" -o alist alist.go; \
+    CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -a -ldflags "-linkmode external -extldflags '-static' -s -w" -o alist alist.go; \
     set +x; \
     chmod a+x alist
     

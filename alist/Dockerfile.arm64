@@ -1,12 +1,12 @@
 FROM golang:stretch as builder
 
-ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update; apt-get install --no-install-recommends -y gcc-aarch64-linux-gnu libc6-dev-arm64-cross git; \
     git clone -b main https://github.com/Xhofe/alist.git /alist; \
     cd /alist; \
     set -x; \
-    CC=aarch64-linux-gnu-gcc GOOS=linux GOARCH=arm64 go build -a -ldflags "-linkmode external -extldflags '-static' -s -w" -o alist alist.go; \
+    CC=aarch64-linux-gnu-gcc CGO_ENABLED=1 GOOS=linux GOARCH=arm64 go build -a -ldflags "-linkmode external -extldflags '-static' -s -w" -o alist alist.go; \
     set +x; \
     chmod a+x alist
     
