@@ -22,5 +22,5 @@ VOLUME /alist/config
 
 EXPOSE 5244
 
-ENTRYPOINT ["/alist/alist", "-skip-update -conf", "/alist/config/conf.yml"]
+ENTRYPOINT ["/alist/alist", "-skip-update", "-conf", "/alist/config/conf.yml"]
 
