@@ -4,5 +4,7 @@
   "address": "",
   "log": "stdout",
   "database": "/database.db",
-  "root": "/srv"
+  "root": "/srv",
+  "disable-thumbnails": true,
+  "disable-preview-resize": true
 }
