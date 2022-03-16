@@ -1,6 +1,6 @@
 FROM alpine:latest as builder
 
-ENV VERSION=2.11.0
+ENV VERSION=2.21.1
 
 RUN apk --update add wget; \
     wget -qO- https://github.com/filebrowser/filebrowser/releases/download/v${VERSION}/linux-amd64-filebrowser.tar.gz | tar zx -C / filebrowser
