@@ -1,0 +1,14 @@
+FROM multiarch/qemu-user-static:x86_64-aarch64 as qemu
+FROM arm64v8/alpine:3.10
+
+COPY --from=qemu /usr/bin/qemu-aarch64-static /usr/bin
+RUN apk add --no-cache --update lighttpd dnsmasq
+
+
+VOLUME /etc/dnsmasq.d
+
+EXPOSE 80/tcp 53/tcp 53/udp
+
+
+CMD dnsmasq && exec lighttpd -f /etc/lighttpd/lighttpd.conf -D
+
