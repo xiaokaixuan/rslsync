@@ -50,13 +50,19 @@ const httpsGetAsync = function (urlString) {
 	});
 };
 
-const getIPAsync = async function () {
-	var data = await httpsGetAsync('https://ifconfig.co');
-	data = data.trim();
+const GET_IP_APIS = {
+	'https://www.taobao.com/help/getip.php': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+	'https://v6r.ipip.net/?format=callback': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+	'https://ifconfig.co': /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/
+};
 
-	const IP_REGEXP = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
-	if (!IP_REGEXP.test(data)) data = '';
-	return data;
+const getIPAsync = async function () {
+	for (const api_url in GET_IP_APIS) {
+		const regexp_ip = GET_IP_APIS[api_url];
+		const data = (await httpsGetAsync(api_url)).trim();
+		const result = data.match(regexp_ip);
+		if (result) return result[0];
+	}
 };
 
 const getRecordsAsync = async function () {
