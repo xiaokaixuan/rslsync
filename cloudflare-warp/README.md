@@ -9,7 +9,7 @@ docker push xiaokaixuan/cloudflare-warp
 ### Usage
 
 ```bash
-docker run -d --name cloudflare-warp --restart=unless-stopped --memory 256m --cpus 1 xiaokaixuan/cloudflare-warp
+docker run -d --name cloudflare-warp --restart=unless-stopped --memory 256m --cpus 1 -p 40001:40001 xiaokaixuan/cloudflare-warp
 ```
 
 ### Commands
