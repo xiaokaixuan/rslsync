@@ -1,13 +1,13 @@
 FROM alpine:latest as builder
 
-ENV VERSION=4.3.3.10
+ENV VERSION=4.5.4.10
 
 ADD qbittorrent /qbittorrent
 
 RUN find /qbittorrent -type f -name run -exec chmod a+x {} \;; \
     apk --update add wget && \
-    wget -q https://github.com/xiaokaixuan/qBittorrent-Enhanced-Edition/releases/download/release-${VERSION}/qbittorrent-nox_aarch64-linux-musl_static.zip && \
-    unzip qbittorrent-nox_aarch64-linux-musl_static.zip -d / && \
+    wget -q https://github.com/xiaokaixuan/qBittorrent-Enhanced-Edition/releases/download/release-${VERSION}/qbittorrent-enhanced-nox_aarch64-linux-musl_static.zip && \
+    unzip qbittorrent-enhanced-nox_aarch64-linux-musl_static.zip -d / && \
     chmod a+x /qbittorrent-nox
     
 FROM multiarch/qemu-user-static:x86_64-aarch64 as qemu
