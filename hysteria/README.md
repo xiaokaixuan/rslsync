@@ -4,7 +4,7 @@
 
 ```bash
 docker run -d --name hysteria \
-    --restart unless-stopped -p4433:443/udp xiaokaixuan/hysteria
+    --restart unless-stopped -e PORT=4433 --net=host xiaokaixuan/hysteria
 ```
 
 ### Docker Hub
