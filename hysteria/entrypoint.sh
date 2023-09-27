@@ -20,5 +20,5 @@ masquerade:
     rewriteHost: true
 EOF
 
-exec /hysteria/hysteria-linux-amd64-avx server
+exec /hysteria/hysteria-linux-amd64 server
 
