@@ -1,10 +1,6 @@
 FROM node:lts-alpine
 
-ENV DOMAIN=
-ENV LOGIN_TOKEN=
+ADD ddns-js /ddns-js
 
-
-ADD app.js /
-
-ENTRYPOINT ["node", "/app.js", "loop"]
+ENTRYPOINT ["node", "/ddns-js/app.js"]
 
