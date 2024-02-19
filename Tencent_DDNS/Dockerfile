@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts-alpine3.10
 
 ADD ddns-js /ddns-js
 

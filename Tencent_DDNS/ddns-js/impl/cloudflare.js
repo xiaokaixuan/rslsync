@@ -1,6 +1,6 @@
 'use strict';
 
-const common = require('./common');
+const request = require('../lib/request'), logger = require('../lib/logger');
 
 
 const Cloudflare = module.exports = function (config) {
@@ -16,10 +16,10 @@ Cloudflare.prototype.getRecordAsync = async function () {
 		'Content-Type': 'application/json',
 		'X-Auth-Email': this.auth_email, 'X-Auth-Key': this.auth_key
 	};
-	const data = await common.httpsGetAsync(`https://api.cloudflare.com/client/v4/zones/${this.zone_id}/dns_records`, headers);
+	const data = await request.httpsGetAsync(`https://api.cloudflare.com/client/v4/zones/${this.zone_id}/dns_records`, headers);
 	var records = [];
 	try { records = JSON.parse(data).result || []; } catch (e) {
-		console.warn('[%s][Cloudflare][WARN]Get record error: %s', common.getTimeString(), data);
+		logger.error('[Cloudflare]Get record error: %s', data);
 	}
 	return records.find(it => it.name == this.domain);
 };
@@ -34,7 +34,7 @@ Cloudflare.prototype.createRecordAsync = async function (myIP) {
 		'proxied': false, 'type': 'A',
 		'comment': 'DDNS', 'ttl': 600
 	};
-	var record = await common.httpsPostAsync(`https://api.cloudflare.com/client/v4/zones/${this.zone_id}/dns_records`, postData, headers);
+	var record = await request.httpsPostAsync(`https://api.cloudflare.com/client/v4/zones/${this.zone_id}/dns_records`, postData, headers);
 	try {
 		record = JSON.parse(record);
 		if (record.result) record = record.result;
@@ -52,7 +52,7 @@ Cloudflare.prototype.modifyRecordAsync = async function (record, myIP) {
 		'proxied': false, 'type': 'A',
 		'comment': 'DDNS', 'ttl': 600
 	};
-	var record = await common.httpsPatchAsync(`https://api.cloudflare.com/client/v4/zones/${this.zone_id}/dns_records/${record.id}`, postData, headers);
+	var record = await request.httpsPatchAsync(`https://api.cloudflare.com/client/v4/zones/${this.zone_id}/dns_records/${record.id}`, postData, headers);
 	try {
 		record = JSON.parse(record).result;
 		if (record.result) record = record.result;
@@ -61,19 +61,19 @@ Cloudflare.prototype.modifyRecordAsync = async function (record, myIP) {
 };
 
 Cloudflare.prototype.runAsync = async function () {
-	const myIP = await common.getIPAsync();
+	const myIP = await request.getIPAsync();
 	if (!myIP) {
-		console.warn('[%s][Cloudflare][WARN]MyIP: Not Found, Waiting Retry...', common.getTimeString());
+		logger.warn('[Cloudflare]MyIP: Not Found, Waiting Retry...');
 		setTimeout(this.runAsync.bind(this), this.interval_ms >> 1);
 		return;
 	}
 	var record = await this.getRecordAsync();
 	if (!record) {
 		record = await this.createRecordAsync(myIP);
-		console.debug('[%s][Cloudflare][DEBUG]Create: %O', common.getTimeString(), record);
+		logger.debug('[Cloudflare]Create: %O', record);
 	} else if (record.content != myIP) {
 		record = await this.modifyRecordAsync(record, myIP);
-		console.debug('[%s][Cloudflare][DEBUG]Update: %O', common.getTimeString(), record);
+		logger.debug('[Cloudflare]Update: %O', record);
 	}
 	return setTimeout(this.runAsync.bind(this), this.interval_ms);
 };
