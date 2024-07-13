@@ -18,6 +18,8 @@ masquerade:
   proxy:
     url: https://www.bing.com 
     rewriteHost: true
+    
+speedTest: true
 EOF
 
 exec /hysteria/hysteria-linux-amd64 server
