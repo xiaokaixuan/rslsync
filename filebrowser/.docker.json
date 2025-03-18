@@ -5,6 +5,8 @@
   "log": "stdout",
   "database": "/database.db",
   "root": "/srv",
+  "disable-exec": true,
+  "disable-preview-resize": true,
   "disable-thumbnails": true,
-  "disable-preview-resize": true
+  "disable-type-detection-by-header": true
 }
