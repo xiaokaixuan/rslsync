@@ -1,9 +1,10 @@
 FROM alpine:latest AS builder
 
-ARG VERSION=2.27.0
+ARG VERSION=2.32.0
 
 RUN apk --update add wget; \
-    wget -qO- https://github.com/filebrowser/filebrowser/releases/download/v${VERSION}/linux-amd64-filebrowser.tar.gz | tar zx -C / filebrowser
+    wget -qO- https://github.com/xiaokaixuan/filebrowser/releases/download/v${VERSION}/linux-amd64-filebrowser.tar.gz | tar zx -C / filebrowser; \
+    chmod a+x filebrowser
     
 FROM scratch
 
@@ -13,5 +14,5 @@ EXPOSE 80
 COPY .docker.json /.filebrowser.json
 COPY --from=builder /filebrowser /filebrowser
 
-ENTRYPOINT ["/filebrowser"]
+ENTRYPOINT ["/filebrowser", "-c", "/.filebrowser.json"]
 
