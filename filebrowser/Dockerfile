@@ -1,6 +1,6 @@
 FROM alpine:latest AS builder
 
-ARG VERSION=2.32.0
+ARG VERSION=2.28.0
 
 RUN apk --update add wget; \
     wget -qO- https://github.com/xiaokaixuan/filebrowser/releases/download/v${VERSION}/linux-amd64-filebrowser.tar.gz | tar zx -C / filebrowser; \
