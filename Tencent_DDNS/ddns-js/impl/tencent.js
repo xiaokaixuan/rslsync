@@ -16,8 +16,10 @@ Tencent.prototype.getRecordAsync = async function () {
     const postData = `login_token=${this.token}&format=json&domain=${main_domain}&sub_domain=${sub_domain}`;
     const data = await request.httpsPostAsync('https://dnsapi.cn/Record.List', postData);
     var records = [];
-    try { records = JSON.parse(data).records || []; } catch {
+    try { records = JSON.parse(data).records || []; }
+    catch {
         logger.error('[Tencent]Get record error: %s', data);
+        return false;
     }
     return records[0];
 };
@@ -56,7 +58,10 @@ Tencent.prototype.runAsync = async function () {
         return;
     }
     var record = await this.getRecordAsync();
-    if (!record) {
+    if (record === false) {
+        setTimeout(this.runAsync.bind(this), this.interval_ms >> 2);
+        return;
+    } else if (!record) {
         record = await this.createRecordAsync(myIP);
         logger.debug('[Tencent]Create: %O', record);
     } else if (record.value != myIP) {

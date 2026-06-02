@@ -17,8 +17,10 @@ Cloudflare.prototype.getRecordAsync = async function () {
     };
     const data = await request.httpsGetAsync(`https://api.cloudflare.com/client/v4/zones/${this.zone_id}/dns_records`, headers);
     var records = [];
-    try { records = JSON.parse(data).result || []; } catch {
+    try { records = JSON.parse(data).result || []; }
+    catch {
         logger.error('[Cloudflare]Get record error: %s', data);
+        return false;
     }
     return records.find(it => it.name == this.domain);
 };
@@ -67,7 +69,10 @@ Cloudflare.prototype.runAsync = async function () {
         return;
     }
     var record = await this.getRecordAsync();
-    if (!record) {
+    if (record === false) {
+        setTimeout(this.runAsync.bind(this), this.interval_ms >> 2);
+        return;
+    } else if (!record) {
         record = await this.createRecordAsync(myIP);
         logger.debug('[Cloudflare]Create: %O', record);
     } else if (record.content != myIP) {

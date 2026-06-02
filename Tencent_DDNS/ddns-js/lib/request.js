@@ -4,11 +4,11 @@ const https = require('https'), url = require('url');
 
 
 const GET_IP_APIS = {
-    'https://www.taobao.com/help/getip.php': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
-    'https://v6r.ipip.net/?format=callback': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
-    'https://ifconfig.co': /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/,
-    'https://ifconfig.me': /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/,
-    'https://myip.111539.xyz/': /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/
+    'https://myip.ipip.net': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+    'https://www.cip.cc': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+    'https://ifconfig.co': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+    'https://ifconfig.me': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+    'https://myip.111539.xyz/': /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
 };
 
 module.exports.getIPAsync = async function () {
