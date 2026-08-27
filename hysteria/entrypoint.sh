@@ -22,5 +22,5 @@ masquerade:
 speedTest: true
 EOF
 
-exec /hysteria/hysteria-linux-amd64 server
+exec /hysteria/hysteria-linux server
 
