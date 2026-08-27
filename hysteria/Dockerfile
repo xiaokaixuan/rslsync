@@ -1,6 +1,6 @@
 FROM alpine:3.6
 
-ENV VERSION=app%2Fv2.8.2
+ENV VERSION=app%2Fv2.12.2
 ENV PORT=443
 ENV PASSWORD=helloworld
 
