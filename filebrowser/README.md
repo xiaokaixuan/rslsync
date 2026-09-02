@@ -2,12 +2,14 @@
 
 ### Support arm64
 ```bash
+# Deprecated
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 docker buildx create --use
 ```
 
 ### Build
 ```bash
+# Deprecated
 docker buildx build --platform=linux/amd64 -t xiaokaixuan/filebrowser:amd64 . --load
 docker buildx build --platform=linux/arm64 -t xiaokaixuan/filebrowser:arm64 -f Dockerfile.arm64 . --load
 
@@ -16,6 +18,9 @@ docker push xiaokaixuan/filebrowser:arm64
 
 docker manifest create xiaokaixuan/filebrowser xiaokaixuan/filebrowser:amd64 xiaokaixuan/filebrowser:arm64 --amend
 docker manifest push xiaokaixuan/filebrowser
+
+# Latest
+docker buildx build --platform linux/amd64,linux/arm64 -t xiaokaixuan/filebrowser --push .
 ```
 
 ### Usage

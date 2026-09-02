@@ -8,5 +8,6 @@
   "disable-exec": true,
   "disable-preview-resize": true,
   "disable-thumbnails": true,
-  "disable-type-detection-by-header": true
+  "disable-type-detection-by-header": true,
+  "disableImageResolutionCalc": true
 }

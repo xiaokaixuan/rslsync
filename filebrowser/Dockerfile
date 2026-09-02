@@ -1,9 +1,10 @@
 FROM alpine:latest AS builder
 
-ARG VERSION=2.42.5
+ARG TARGETARCH
+ARG VERSION=2.63.23
 
 RUN apk --update add wget; \
-    wget -qO- https://github.com/xiaokaixuan/filebrowser/releases/download/v${VERSION}/linux-amd64-filebrowser.tar.gz | tar zx -C / filebrowser; \
+    wget -qO- https://github.com/xiaokaixuan/filebrowser/releases/download/v${VERSION}/linux-${TARGETARCH}-filebrowser.tar.gz | tar zx -C / filebrowser; \
     chmod a+x filebrowser
     
 FROM scratch
