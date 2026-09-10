@@ -2,11 +2,13 @@
 
 ### Support arm64
 ```bash
+# Deprecated
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 ```
 
 ### Build
 ```bash
+# Deprecated
 docker build -t xiaokaixuan/aria2_ng:amd64 .
 docker build -t xiaokaixuan/aria2_ng:arm64 -f Dockerfile.arm64 .
 docker push xiaokaixuan/aria2_ng:amd64
@@ -14,6 +16,9 @@ docker push xiaokaixuan/aria2_ng:arm64
 
 docker manifest create xiaokaixuan/aria2_ng xiaokaixuan/aria2_ng:amd64 xiaokaixuan/aria2_ng:arm64 --amend
 docker manifest push xiaokaixuan/aria2_ng
+
+# Latest
+docker buildx build --platform linux/amd64,linux/arm64 -t xiaokaixuan/aria2_ng --push .
 ```
 
 ### Usage

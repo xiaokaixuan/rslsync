@@ -4,4 +4,5 @@
 :80 {
   root * /AriaNg
   file_server
+  reverse_proxy /jsonrpc 127.0.0.1:6800
 }
